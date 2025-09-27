@@ -33,6 +33,39 @@ public class StatusFacadeREST extends AbstractFacade<Status> {
         super(Status.class);
     }
 
+    
+    /*
+        <------------------- COMPROBAR API CON POSTMAN ------------------->
+
+        URL: http://localhost:8080/Api_rest_pry/webresources/repository.status/listarSimple
+
+        -------------------------------------------------------------------
+        RESPUESTA ESPERADA:
+        {
+            "success": true,
+            "data": [
+                {
+                    "id": 1,
+                    "name": "En Progreso"
+                },
+                {
+                    "id": 2,
+                    "name": "Completado"
+                },
+                {
+                    "id": 3,
+                    "name": "Pendiente"
+                },
+                {
+                    "id": 4,
+                    "name": "Cancelado"
+                }
+            ]
+        }
+
+        NOTA: Este endpoint requiere autenticación mediante cookie de sesión.
+        Devuelve un catálogo simple de estados disponibles para proyectos.
+    */
     // Endpoint REST para listar todos los estados disponibles (catálogo de estados)
     @GET
     @Path("listarSimple")

@@ -31,11 +31,11 @@ public class EmployeeController {
                 return "{\"success\": false, \"message\": \"employeeId es requerido\"}";
             }
             
-            Query query = em.createQuery("SELECT p.id, p.name, s.id, s.name, c.id, c.code "
-                    + "FROM Project p "
-                    + "LEFT JOIN p.statusId s "
-                    + "LEFT JOIN p.categoryId c "
-                    + "WHERE p.employeeId.id = :employeeId OR p.shared = true");
+            Query query = em.createQuery("SELECT e.id, e.firstName, e.lastName, e.company, e.phone, "
+                            + "e.userId.id, e.userId.email, "
+                            + "e.roleId.id, e.roleId.name "
+                            + "FROM Employee e "
+                            + "WHERE e.id = :employeeId");
             query.setParameter("employeeId", employeeId);
             List<Object[]> results = query.getResultList();
             

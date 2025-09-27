@@ -17,6 +17,31 @@ public class StatusController {
         this.em = em;
     }
     
+    
+    /*
+        <------------------- COMPROBAR API CON POSTMAN ------------------->
+
+        URL: http://localhost:8080/Api_rest_pry/webresources/repository.status/listarSimple
+
+        -------------------------------------------------------------------
+        RESPUESTA ESPERADA:
+        {
+            "success": true,
+            "data": [
+                {
+                    "name": "Activo",
+                    "id": 1
+                },
+                {
+                    "name": "Completado",
+                    "id": 2
+                }
+            ]
+        }
+
+        NOTA: Este endpoint requiere autenticación mediante cookie de sesión.
+        Devuelve un catálogo simple de estados disponibles para proyectos.
+    */
     // Método para listar todos los estados disponibles (catálogo de estados)
     public String listarSimple(String sessionToken) {
         try {
@@ -28,7 +53,7 @@ public class StatusController {
                 return "{\"success\": false, \"message\": \"Formato de token inválido\"}";
             }
             
-            Query query = em.createNamedQuery("Status.findIdName");
+            Query query = em.createQuery("SELECT s.id, s.name FROM Status s");
             List<Object[]> results = query.getResultList();
             List<Object> statusList = new ArrayList<>();
             for (Object[] result : results) {

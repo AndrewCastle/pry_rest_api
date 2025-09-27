@@ -38,6 +38,32 @@ public class CategoryFacadeREST extends AbstractFacade<Category> {
         super(Category.class);
     }
     
+    
+    /*
+        <------------------- COMPROBAR API CON POSTMAN ------------------->
+
+        URL: http://localhost:8080/Api_rest_pry/webresources/repository.category/listar
+
+        -------------------------------------------------------------------
+        RESPUESTA ESPERADA:
+        {
+            "success": true,
+            "data": [
+                {
+                    "code": "WEB",
+                    "name": "Desarrollo Web",
+                    "id": 1
+                },
+                {
+                    "code": "MOBILE",
+                    "name": "Desarrollo Móvil",
+                    "id": 2
+                }
+            ]
+        }
+        NOTA: Este endpoint requiere autenticación mediante cookie de sesión.
+        La cookie se establece automáticamente después del login exitoso.
+    */
     // Endpoint REST para listar todas las categorías disponibles
     @GET
     @Path("listar")

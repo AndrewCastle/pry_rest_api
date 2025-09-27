@@ -46,6 +46,39 @@ public class EmployeeFacadeREST extends AbstractFacade<Employee> {
         }
     }
 
+    
+    /*
+        <------------------- COMPROBAR API CON POSTMAN ------------------->
+
+        URL: http://localhost:8080/Api_rest_pry/webresources/repository.employee/perfilPorEmpleado?employeeId=1
+
+        QUERY PARAMETERS:
+        employeeId: 1 (ID del empleado a consultar)
+
+        -------------------------------------------------------------------
+        RESPUESTA ESPERADA:
+        {
+            "success": true,
+            "data": {
+                "id": 1,
+                "firstName": "Juan",
+                "lastName": "Pérez",
+                "company": "Mi Empresa",
+                "phone": "123-456-7890",
+                "user": {
+                    "id": 1,
+                    "email": "juan@empresa.com"
+                },
+                "role": {
+                    "id": 1,
+                    "name": "Desarrollador"
+                }
+            }
+        }
+
+        NOTA: Este endpoint requiere autenticación mediante cookie de sesión.
+        El employeeId es obligatorio y debe existir en la base de datos.
+    */
     // Endpoint REST para obtener el perfil completo de un empleado específico
     @GET
     @Path("perfilPorEmpleado")

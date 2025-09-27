@@ -1,4 +1,4 @@
-package services;
+ package services;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +33,54 @@ public class ProjectFacadeREST extends AbstractFacade<Project> {
         super(Project.class);
     }
 
+    
+    /*
+        <------------------- COMPROBAR API CON POSTMAN ------------------->
+
+        URL: http://localhost:8080/Api_rest_pry/webresources/repository.project/listarPorEmpleado?employeeId=1
+
+        QUERY PARAMETERS:
+        employeeId: 1 (ID del empleado a consultar)
+    
+        -------------------------------------------------------------------
+        RESPUESTA ESPERADA:
+        {
+            "success": true,
+            "data": [
+                {
+                    "name": "Proyecto Alpha",
+                    "id": 3,
+                    "category": {
+                        "code": "WEB",
+                        "id": 1
+                    },
+                    "status": {
+                        "name": "Completado",
+                        "id": 2
+                    }
+                },
+                {
+                    "name": "Mi Nuevo Proyecto",
+                    "id": 5,
+                    "category": {
+                        "code": "WEB",
+                        "id": 1
+                    },
+                    "status": {
+                        "name": "Activo",
+                        "id": 1
+                    }
+                },
+                .
+                .
+                .
+            ]
+        }
+
+        NOTA: Este endpoint requiere autenticación mediante cookie de sesión.
+        Incluye proyectos del empleado específico Y proyectos compartidos (shared = true).
+        El employeeId es obligatorio y debe existir en la base de datos.
+    */
     // Endpoint REST para listar proyectos de un empleado específico
     @GET
     @Path("listarPorEmpleado")
@@ -54,6 +102,46 @@ public class ProjectFacadeREST extends AbstractFacade<Project> {
         }
     }
 
+    
+    /*
+        <------------------- COMPROBAR API CON POSTMAN ------------------->
+
+        URL: http://localhost:8080/Api_rest_pry/webresources/repository.project/crear
+
+        HEADERS:
+        Content-Type: application/json
+    
+        BODY (JSON) radioButton=raw:
+        {
+            "name": "Mi Nuevo Proyecto",
+            "description": "Descripción detallada del proyecto",
+            "startDate": "2024-01-15",
+            "endDate": "2024-12-31",
+            "shared": false,
+            "icon": "project-icon.png",
+            "categoryId": {
+                "id": 1
+            },
+            "employeeId": {
+                "id": 1
+            },
+            "statusId": {
+                "id": 1
+            }
+        }
+
+        -------------------------------------------------------------------
+        RESPUESTA ESPERADA:
+        {
+            "success": true,
+            "message": "Proyecto creado exitosamente",
+            "id": 8
+        }
+
+        NOTA: Este endpoint requiere autenticación mediante cookie de sesión.
+        Los campos categoryId, employeeId y statusId deben existir en la base de datos.
+        Las fechas deben estar en formato YYYY-MM-DD.
+    */
     // Endpoint REST para crear un nuevo proyecto en la base de datos
     @POST
     @Path("crear")
@@ -75,6 +163,46 @@ public class ProjectFacadeREST extends AbstractFacade<Project> {
         }
     }
     
+    
+    /*
+        <------------------- COMPROBAR API CON POSTMAN ------------------->
+
+        URL: http://localhost:8080/Api_rest_pry/webresources/repository.project/busquedaAvanzada?employeeId=1&nombreProyecto=Proyecto%Alpha&nombreCategoria=Desarrollo%Web&codigoCategoria=WEB&nombreEstado=Completado&fechaInicio=2025-01-01&fechaFinalizacion=2025-06-30
+
+        QUERY PARAMETERS (todos opcionales excepto employeeId):
+        employeeId: 1 (OBLIGATORIO - ID del empleado)
+        nombreProyecto: web (opcional - búsqueda por nombre de proyecto)
+        nombreCategoria: desarrollo (opcional - búsqueda por nombre de categoría)
+        codigoCategoria: WEB (opcional - búsqueda por código de categoría)
+        nombreEstado: progreso (opcional - búsqueda por nombre de estado)
+        fechaInicio: 2024-01-01 (opcional - proyectos desde esta fecha)
+        fechaFinalizacion: 2024-12-31 (opcional - proyectos hasta esta fecha)
+
+        -------------------------------------------------------------------
+        RESPUESTA ESPERADA:
+        {
+            "success": true,
+            "data": [
+                {
+                    "name": "Proyecto Alpha",
+                    "id": 3,
+                    "category": {
+                        "code": "WEB",
+                        "id": 1
+                    },
+                    "status": {
+                        "name": "Completado",
+                        "id": 2
+                    }
+                }
+            ]
+        }
+
+        NOTA: Este endpoint requiere autenticación mediante cookie de sesión.
+        Solo employeeId es obligatorio, todos los demás filtros son opcionales.
+        Las fechas deben estar en formato YYYY-MM-DD.
+        Incluye proyectos del empleado específico Y proyectos compartidos (shared = true).
+    */
     // Endpoint REST para realizar búsqueda avanzada de proyectos con múltiples filtros
     @GET
     @Path("busquedaAvanzada")

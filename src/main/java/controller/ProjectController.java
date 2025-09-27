@@ -37,7 +37,7 @@ public class ProjectController {
                                         "FROM Project p " +
                                         "LEFT JOIN p.statusId s " +
                                         "LEFT JOIN p.categoryId c " +
-                                        "WHERE p.employeeId.id = :employeeId");
+                                        "WHERE p.employeeId.id = :employeeId OR p.shared = true");
             query.setParameter("employeeId", employeeId);
             List<Object[]> results = query.getResultList();
             

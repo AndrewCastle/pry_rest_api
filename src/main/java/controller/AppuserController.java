@@ -133,7 +133,7 @@ public class AppuserController {
             recovery.setCreatedAt(new Date());
             recovery.setExpirationAt(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000));
             recovery.setUsed(false);
-            recovery.setStatus("PENDING");
+            recovery.setStatus("ACTIVE");
             recovery.setUserId(user);
             em.persist(recovery);
             em.getTransaction().commit();
@@ -195,7 +195,7 @@ public class AppuserController {
                 return "{\"success\": false, \"message\": \"Token de recuperación ha expirado\"}";
             }
             
-            if (!"PENDING".equals(recovery.getStatus())) {
+            if (!"ACTIVE".equals(recovery.getStatus())) {
                 return "{\"success\": false, \"message\": \"Token de recuperación no está activo\"}";
             }
             
